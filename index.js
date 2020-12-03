@@ -1,5 +1,7 @@
 // var connection = require("./config/connection");
 var inquirer = require("inquirer");
+const logo = require('asciiart-logo');
+const config = require('./package.json');
 
 function employeePromt() {
     inquirer.prompt([
@@ -48,4 +50,18 @@ function employeePromt() {
     })
 }
 
+// Prints Employee Tracker on CLI
+console.log(
+    logo({
+        name: 'Employee Tracker',
+        lineChars: 10,
+        padding: 2,
+        margin: 3,     
+        borderColor: 'green',
+        logoColor: 'green',
+    })
+    .render()
+);
+
+// function call to employeePromt()
 employeePromt();
