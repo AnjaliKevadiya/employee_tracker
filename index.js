@@ -1,7 +1,7 @@
 // var connection = require("./config/connection");
-var inquirer = require("inquirer");
+const inquirer = require("inquirer");
 const logo = require('asciiart-logo');
-const config = require('./package.json');
+const orm = require("./config/orm");
 
 function employeePromt() {
     inquirer.prompt([
@@ -24,6 +24,7 @@ function employeePromt() {
     .then(function(answer) {
         switch(answer.action) {
             case 'View All Employees':
+                viewAllEmployees();
                 break;
 
             case 'View All Employees By Department':
@@ -45,8 +46,14 @@ function employeePromt() {
                 break;
         
             default:
-                // connection.end();
+                connection.end();
         }
+    })
+}
+
+function viewAllEmployees() {
+    orm.selectAll("employee", function(result) {
+        console.log(result);
     })
 }
 
