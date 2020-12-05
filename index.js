@@ -1,74 +1,114 @@
-// var connection = require("./config/connection");
-const inquirer = require("inquirer");
+const inquirer = require('inquirer');
 const logo = require('asciiart-logo');
-const orm = require("./config/orm");
+require('console.table');
+const db = require("./config");
 
-function employeePromt() {
-    inquirer.prompt([
-        {
-            name: 'action',
-            type: 'list',
-            choices: [
-                'View All Employees',
-                'View All Employees By Department',
-                'View ALl Employees By Manager',
-                'Add Employee',
-                'Remove Employee',
-                'Update Employee Role',
-                'Update Employee Manager',
-                'Exit'
-            ],
-            message: 'What would you like do?'
-        }
-    ])
-    .then(function(answer) {
-        switch(answer.action) {
-            case 'View All Employees':
-                viewAllEmployees();
-                break;
+init();
 
-            case 'View All Employees By Department':
-                break;
-
-            case 'View All Employees By Manager':
-                break;
-
-            case 'Add Employee':
-                break;
-
-            case 'Remove Employee':
-                break;
-            
-            case 'Update Employee Role':
-                break;
-
-            case 'Update Employee Manager':
-                break;
-        
-            default:
-                connection.end();
-        }
-    })
-}
-
-function viewAllEmployees() {
-    orm.selectAll("employee", function(result) {
-        console.log(result);
-    })
-}
-
-// Prints Employee Tracker on CLI
-console.log(
-    logo({
+// Display logo text, load main prompts
+function init() {
+    const logoText = logo({
         name: 'Employee Tracker',
         lineChars: 10,
         padding: 2,
         margin: 3,     
         borderColor: 'green',
         logoColor: 'green',
-    })
-    .render()
-);
+    }).render();
+    
+    console.log(logoText);
 
-// function call to employeePromt()
-employeePromt();
+    employeePromts();
+}
+
+async function employeePromts() {
+    const { choice } = await prompt([
+        {
+            name: 'choice',
+            type: 'list',
+            message: 'What would you like do?',
+            choices: [
+                {
+                    name: 'View All Employees',
+                    value: 'VIEW_EMPLOYEES'
+                },
+                {
+                    name: 'View All Employees By Department',
+                    value: 'VIEW_EMPLOYEES_BY_DEPARTMENT'
+                },
+                {
+                    name: 'View All Employees By Manager',
+                    value: 'VIEW_EMPLOYEES_BY_MANAGER'
+                },
+                {
+                    name: 'Add Employee',
+                    value: 'ADD_EMPLOYEE'
+                },
+                {
+                    name: 'Remove Employee',
+                    value: 'REMOVE_EMPLOYEE'
+                },
+                {
+                    name: 'Update Employee Role',
+                    value: 'UPDATE_EMPLOYEE_ROLE'
+                },
+                {
+                    name: 'Update Employee Manager',
+                    value: 'UPDATE_EMPLOYEE_MANAGER'
+                },
+                {
+                    name: 'View All Role',
+                    value: 'VIEW_ROLES'
+                },
+                {
+                    name: 'Add Role',
+                    value: 'ADD_ROLE'
+                },
+                {
+                    name: 'Remove Role',
+                    value: 'REMOVE_ROLE'
+                },
+                {
+                    name: 'View All Departments',
+                    value: 'VIEW_DEPARTMENTS'
+                },
+                {
+                    name: 'Add Department',
+                    value: 'ADD_DEPARTMENT'
+                },
+                {
+                    name: 'Remove Department',
+                    value: 'REMOVE_DEPARTMENT'
+                },
+                {
+                    name: 'Quit',
+                    value: 'QUIT'
+                }
+            ]
+        }
+    ])
+    switch(choice) {
+        case 'View All Employees':
+
+        case 'View All Employees By Department':
+            break;
+
+        case 'View All Employees By Manager':
+            break;
+
+        case 'Add Employee':
+            break;
+
+        case 'Remove Employee':
+            break;
+        
+        case 'Update Employee Role':
+            break;
+
+        case 'Update Employee Manager':
+            break;
+    
+        default:
+            return quit();
+    }
+}
