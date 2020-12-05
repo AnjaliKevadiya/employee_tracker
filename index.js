@@ -172,7 +172,7 @@ async function updateEmployeeManager() {
 async function viewRoles() {
 
     const roles = await db.viewAllRoles();
-    console.log("\n");
+    console.log('\n');
     console.table(roles);
     
     employeePromts();
@@ -187,6 +187,11 @@ async function removeRole() {
 }
 
 async function viewDepartments() {
+
+    const departments = await db.viewAllDepartments();
+    console.log('\n');
+    console.table(departments);
+
     employeePromts();
 }
 
