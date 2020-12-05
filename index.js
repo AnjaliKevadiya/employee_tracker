@@ -154,6 +154,57 @@ async function viewEmployeesByManager() {
 }
 
 async function addEmployee() {
+
+    const roles = await db.viewAllRoles();
+    const employees = await db.viewAllEmployees();
+
+    const employee = await prompt([
+        {
+            name: 'first_name',
+            message: 'What is the employee\'s first name?'
+        },
+        {
+            name: 'last_name',
+            message: 'What is the employee\'s last name?'
+        }
+    ]);
+
+    const roleChoices = roles.map(({ id, title }) => ({
+        name: title,
+        value: id
+    }));
+    
+    const { roleId } = await prompt({
+        type: 'list',
+        name: 'roleId',
+        message: 'What is the employee\'s role?',
+        choices: roleChoices
+    });
+
+    employee.role_id = roleId;
+
+    const managerChoices = employees.map(({ id, first_name, last_name }) => ({
+        name: first_name + last_name,
+        value: id
+    }));
+
+    managerChoices.unshift({ name: 'None', value: null });
+
+    const { managerId } = await prompt({
+        type: 'list',
+        name: 'managerId',
+        message: 'Who is the employee\'s manager?',
+        choices: managerChoices
+    });
+
+    employee.manager_id = managerId;
+
+    await db.createEmployee(employee);
+
+    console.log(
+    `Added ${employee.first_name} ${employee.last_name} to the database`
+    );
+    
     employeePromts();
 }
 
