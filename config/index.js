@@ -45,7 +45,7 @@ class DB {
         return this.connection.query(
             `INSERT INTO role SET ?`,
             role
-        )
+        );
     }
 
     viewAllDepartments() {
@@ -57,6 +57,14 @@ class DB {
             GROUP BY department.id, department.name`
         );
     }
+
+    createDepartment(department) {
+        return this.connection.query(
+            `INSERT INTO department SET ?`,
+            department
+        );
+    }
+
 }
 
 module.exports = new DB(connection);
