@@ -1,7 +1,7 @@
-const inquirer = require('inquirer');
+const { prompt } = require('inquirer');
 const logo = require('asciiart-logo');
 require('console.table');
-const db = require("./config");
+const db = require('./config');
 
 init();
 
@@ -13,7 +13,7 @@ function init() {
         padding: 2,
         margin: 3,     
         borderColor: 'green',
-        logoColor: 'green',
+        logoColor: 'green'
     }).render();
     
     console.log(logoText);
@@ -22,7 +22,7 @@ function init() {
 }
 
 async function employeePromts() {
-    const { choice } = await prompt([
+  const { choice } = await prompt([
         {
             name: 'choice',
             type: 'list',
@@ -86,29 +86,114 @@ async function employeePromts() {
                 }
             ]
         }
-    ])
-    switch(choice) {
-        case 'View All Employees':
-
-        case 'View All Employees By Department':
-            break;
-
-        case 'View All Employees By Manager':
-            break;
-
-        case 'Add Employee':
-            break;
-
-        case 'Remove Employee':
-            break;
-        
-        case 'Update Employee Role':
-            break;
-
-        case 'Update Employee Manager':
-            break;
+    ]);
     
+    switch(choice) {
+
+        case 'VIEW_EMPLOYEES':
+            return viewEmployees();
+
+        case 'VIEW_EMPLOYEES_BY_DEPARTMENT':
+            return viewEmployeesByDepartment();
+
+        case 'VIEW_EMPLOYEES_BY_MANAGER':
+            return viewEmployeesByManager();
+
+        case 'ADD_EMPLOYEE':
+            return addEmployee();
+
+        case 'REMOVE_EMPLOYEE':
+            return removeEmployee();
+
+        case 'UPDATE_EMPLOYEE_ROLE':
+            return updateEmployeeRole();
+
+        case 'UPDATE_EMPLOYEE_MANAGER':
+            return updateEmployeeManager();
+    
+        case 'VIEW_ROLES':
+            return viewRoles();
+
+        case 'ADD_ROLE':
+            return addRole();
+
+        case 'REMOVE_ROLE':
+            return removeRole();
+
+        case 'VIEW_DEPARTMENTS':
+            return viewDepartments();
+
+        case 'ADD_DEPARTMENT':
+            return addDepartment();
+
+        case 'REMOVE_DEPARTMENT':
+            return removeDepartment();
+
         default:
             return quit();
     }
+}
+
+async function viewEmployees() {
+
+
+    const employees = await db.viewAllEmployees();
+    console.log(employees);
+
+    console.log("\n");
+    console.table(employees);
+    employeePromts();
+}
+
+async function viewEmployeesByDepartment() {
+    employeePromts();
+}
+
+async function viewEmployeesByManager() {
+    employeePromts();
+}
+
+async function addEmployee() {
+    employeePromts();
+}
+
+async function removeEmployee() {
+    employeePromts();
+}
+
+async function updateEmployeeRole() {
+    employeePromts();
+}
+
+async function updateEmployeeManager() {
+    employeePromts();
+}
+
+async function viewRoles() {
+    employeePromts();
+}
+
+async function addRole() {
+    employeePromts();
+}
+
+async function removeRole() {
+    employeePromts();
+}
+
+async function viewDepartments() {
+    employeePromts();
+}
+
+async function addDepartment() {
+    employeePromts();
+}
+
+async function removeDepartment() {
+    employeePromts();
+}
+
+function quit() {
+    console.log("Goodbye!");
+    process.exit();
 }
