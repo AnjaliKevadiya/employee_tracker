@@ -170,6 +170,11 @@ async function updateEmployeeManager() {
 }
 
 async function viewRoles() {
+
+    const roles = await db.viewAllRoles();
+    console.log("\n");
+    console.table(roles);
+    
     employeePromts();
 }
 
