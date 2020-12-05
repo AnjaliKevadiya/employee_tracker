@@ -16,6 +16,16 @@ class DB {
         );
     } 
 
+    viewAllEmployeesByDepartment(departmentId) {
+        return this.connection.query(
+            `SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name
+            FROM employee
+            LEFT JOIN role ON employee.role_id = role.id
+            LEFT JOIN department ON role.department_id = department.id
+            WHERE department.id = ${departmentId}`
+        );
+    }
+
     createEmployee(employee) {
         return this.connection.query(
             `INSERT INTO employee SET ?`,

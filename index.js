@@ -136,7 +136,6 @@ async function employeePromts() {
 
 async function viewEmployees() {
 
-
     const employees = await db.viewAllEmployees();
     console.log(employees);
 
@@ -146,6 +145,27 @@ async function viewEmployees() {
 }
 
 async function viewEmployeesByDepartment() {
+
+    const departments = await db.viewAllDepartments();
+
+    const departmentChoices = departments.map(({ id, name }) => ({
+        name: name,
+        value: id
+    }));
+
+    const { departmentId } = await prompt([
+        {
+            type: 'list',
+            name: 'departmentId',
+            message: 'Which department would ypu like to see employees for?',
+            choices: departmentChoices
+        }
+    ]);
+
+    const employees = await db.viewAllEmployeesByDepartment(departmentId);
+    console.log('\n');
+    console.table(employees);
+
     employeePromts();
 }
 
