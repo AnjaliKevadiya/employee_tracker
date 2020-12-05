@@ -41,6 +41,13 @@ class DB {
         );
     }
 
+    createRole(role) {
+        return this.connection.query(
+            `INSERT INTO role SET ?`,
+            role
+        )
+    }
+
     viewAllDepartments() {
         return this.connection.query(
             `SELECT department.id, department.name, SUM(role.salary) AS utilized_budget 
