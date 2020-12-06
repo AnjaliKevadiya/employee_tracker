@@ -251,6 +251,29 @@ async function addEmployee() {
 }
 
 async function removeEmployee() {
+
+    const employees = await db.viewAllEmployees();
+
+    const employeeChoices = employees.map(({ id, first_name, last_name }) => ({
+        name: first_name + last_name,
+        value: id
+    }));
+
+    const { employeeId } = await prompt([
+        {
+            type: 'list',
+            name: 'employeeId',
+            message: 'Which employee would you like to delete?',
+            choices: employeeChoices
+        }
+    ]);
+
+    await db.removeEmployee(employeeId);
+
+    console.log(
+        `Removed employee successfully!`
+    );
+    
     employeePromts();
 }
 

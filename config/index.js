@@ -49,6 +49,13 @@ class DB {
         );
     }
 
+    removeEmployee(employeeId) {
+        return this.connection.query(
+            `DELETE FROM employee
+            WHERE id = ${employeeId}`
+        );
+    }
+
     viewAllRoles() {
         return this.connection.query(
             `SELECT role.id, role.title, role.salary, department.name 
