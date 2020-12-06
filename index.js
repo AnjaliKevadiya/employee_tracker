@@ -170,6 +170,28 @@ async function viewEmployeesByDepartment() {
 }
 
 async function viewEmployeesByManager() {
+
+    const employees = await db.viewAllEmployees();
+
+    const employeeChoices = employees.map(({ id, first_name, last_name }) => ({
+        name: first_name + last_name,
+        value: id
+    }));
+
+    const { employeeId } = await prompt([
+        {
+            type: 'list',
+            name: 'employeeId',
+            message: 'Which manager would you like to see employees for?',
+            choices: employeeChoices
+        }
+    ]);
+    
+    const managers = await db.viewAllEmployeesByManager(employeeId);
+
+    console.log('\n');
+    console.table(managers);    
+    
     employeePromts();
 }
 
