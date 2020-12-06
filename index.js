@@ -18,9 +18,11 @@ function init() {
     
     console.log(logoText);
 
+    // function call to employeePromts
     employeePromts();
 }
 
+// ask promts to employees
 async function employeePromts() {
   const { choice } = await prompt([
         {
@@ -134,6 +136,7 @@ async function employeePromts() {
     }
 }
 
+// function to view all the employees
 async function viewEmployees() {
 
     const employees = await db.viewAllEmployees();
@@ -144,6 +147,7 @@ async function viewEmployees() {
     employeePromts();
 }
 
+// function to view all the employees of selected department
 async function viewEmployeesByDepartment() {
 
     const departments = await db.viewAllDepartments();
@@ -169,6 +173,7 @@ async function viewEmployeesByDepartment() {
     employeePromts();
 }
 
+// function to view all the emplyees of selected managers
 async function viewEmployeesByManager() {
 
     const employees = await db.viewAllEmployees();
@@ -195,6 +200,7 @@ async function viewEmployeesByManager() {
     employeePromts();
 }
 
+// function to add new employee
 async function addEmployee() {
 
     const roles = await db.viewAllRoles();
@@ -250,6 +256,7 @@ async function addEmployee() {
     employeePromts();
 }
 
+// function to remove selected employee
 async function removeEmployee() {
 
     const employees = await db.viewAllEmployees();
@@ -275,6 +282,7 @@ async function removeEmployee() {
     employeePromts();
 }
 
+// function to update selected employee's role
 async function updateEmployeeRole() {
 
     const employees = await db.viewAllEmployees();
@@ -316,7 +324,7 @@ async function updateEmployeeRole() {
     employeePromts();
 }
 
-// update selected employee's manager
+// function to update selected employee's manager
 async function updateEmployeeManager() {
 
     const employees = await db.viewAllEmployees();
@@ -358,6 +366,7 @@ async function updateEmployeeManager() {
     employeePromts();
 }
 
+// function to view all the roles
 async function viewRoles() {
 
     const roles = await db.viewAllRoles();
@@ -367,6 +376,7 @@ async function viewRoles() {
     employeePromts();
 }
 
+// function to to add new role
 async function addRole() {
 
     const departments = await db.viewAllDepartments();
@@ -400,6 +410,7 @@ async function addRole() {
     employeePromts();
 }
 
+// function to remove selected role
 async function removeRole() {
 
     const roles = await db.viewAllRoles();
@@ -425,6 +436,7 @@ async function removeRole() {
     employeePromts();
 }
 
+// function to view all the departments
 async function viewDepartments() {
 
     const departments = await db.viewAllDepartments();
@@ -434,6 +446,7 @@ async function viewDepartments() {
     employeePromts();
 }
 
+// function to add new department
 async function addDepartment() {
   
     const department = await prompt([
@@ -450,6 +463,7 @@ async function addDepartment() {
     employeePromts();
 }
 
+// function to remove selected department
 async function removeDepartment() {
 
     const departments = await db.viewAllDepartments();
@@ -475,6 +489,7 @@ async function removeDepartment() {
     employeePromts();
 }
 
+// function to quit the prompts
 function quit() {
     console.log("Goodbye!");
     process.exit();

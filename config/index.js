@@ -6,6 +6,7 @@ class DB {
         this.connection = connection;
     }
 
+    //view all the employees
     viewAllEmployees() {
         return this.connection.query(
             `SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name, role.salary, CONCAT(e2.first_name, ' ' , e2.last_name) AS manager
@@ -16,6 +17,7 @@ class DB {
         );
     } 
 
+    //view all the employees by department
     viewAllEmployeesByDepartment(departmentId) {
         return this.connection.query(
             `SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name
@@ -26,6 +28,7 @@ class DB {
         );
     }
 
+    // view all the employees by selected manager
     viewAllEmployeesByManager(employeeId) {
         return this.connection.query(
             `SELECT employee.id, employee.first_name, employee.last_name, department.name AS department, role.title FROM employee
@@ -35,6 +38,7 @@ class DB {
         );
     }
 
+    // add new employee
     createEmployee(employee) {
         return this.connection.query(
             `INSERT INTO employee SET ?`,
@@ -42,6 +46,7 @@ class DB {
         );
     }
 
+    // update selected employee's role
     updateEmployeeRole(employeeId, roleId) {
         return this.connection.query(
             `UPDATE employee SET role_id = ${roleId} 
@@ -57,6 +62,7 @@ class DB {
         );
     }
 
+    // remove the selected employee
     removeEmployee(employeeId) {
         return this.connection.query(
             `DELETE FROM employee
@@ -64,6 +70,7 @@ class DB {
         );
     }
 
+    // view all the roles
     viewAllRoles() {
         return this.connection.query(
             `SELECT role.id, role.title, role.salary, department.name 
@@ -72,6 +79,7 @@ class DB {
         );
     }
 
+    // add new role
     createRole(role) {
         return this.connection.query(
             `INSERT INTO role SET ?`,
@@ -79,6 +87,7 @@ class DB {
         );
     }
 
+    // remove the selected role
     removeRole(roleId) {
         return this.connection.query(
             `DELETE FROM role
@@ -86,6 +95,7 @@ class DB {
         );
     }
 
+    // view all the departments
     viewAllDepartments() {
         return this.connection.query(
             `SELECT department.id, department.name, SUM(role.salary) AS utilized_budget 
@@ -96,6 +106,7 @@ class DB {
         );
     }
 
+    // add new department
     createDepartment(department) {
         return this.connection.query(
             `INSERT INTO department SET ?`,
@@ -103,6 +114,7 @@ class DB {
         );
     }
 
+    // remove the selected department
     removeDepartment(departmentId) {
         return this.connection.query(
             `DELETE FROM department
