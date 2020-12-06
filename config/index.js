@@ -95,6 +95,12 @@ class DB {
         );
     }
 
+    removeDepartment(departmentId) {
+        return this.connection.query(
+            `DELETE FROM department
+            WHERE id = ${departmentId}`
+        );
+    }
 }
 
 module.exports = new DB(connection);

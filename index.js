@@ -413,6 +413,27 @@ async function addDepartment() {
 }
 
 async function removeDepartment() {
+
+    const departments = await db.viewAllDepartments();
+
+    const departmentsChoices = departments.map(({ id, name }) => ({
+        name: name,
+        value: id
+    }));
+
+    const { departmentId } = await prompt([
+        {
+            type: 'list',
+            name: 'departmentId',
+            message: 'Which department would you like to delete?',
+            choices: departmentsChoices
+        }
+    ]);
+
+    await db.removeDepartment(departmentId);
+
+    console.log(`Removed department successfully!`);
+
     employeePromts();
 }
 
