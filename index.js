@@ -270,9 +270,7 @@ async function removeEmployee() {
 
     await db.removeEmployee(employeeId);
 
-    console.log(
-        `Removed employee successfully!`
-    );
+    console.log(`Removed employee successfully!`);
     
     employeePromts();
 }
@@ -365,6 +363,27 @@ async function addRole() {
 }
 
 async function removeRole() {
+
+    const roles = await db.viewAllRoles();
+
+    const roleChoices = roles.map(({ id, title }) => ({
+        name: title,
+        value: id
+    }));
+
+    const { roleId } = await prompt([
+        {
+            type: 'list',
+            name: 'roleId',
+            message: 'Which role would you like to delete?',
+            choices: roleChoices
+        }
+    ]);
+
+    await db.removeRole(roleId);
+
+    console.log(`Removed role successfully!`);
+
     employeePromts();
 }
 

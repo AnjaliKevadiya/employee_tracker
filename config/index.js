@@ -71,6 +71,13 @@ class DB {
         );
     }
 
+    removeRole(roleId) {
+        return this.connection.query(
+            `DELETE FROM role
+            WHERE id = ${roleId}`
+        );
+    }
+
     viewAllDepartments() {
         return this.connection.query(
             `SELECT department.id, department.name, SUM(role.salary) AS utilized_budget 
