@@ -33,6 +33,13 @@ class DB {
         );
     }
 
+    updateEmployeeRole(employeeId, roleId) {
+        return this.connection.query(
+            `UPDATE employee SET role_id = ${roleId} 
+            WHERE id = ${employeeId}`
+        );
+    }
+
     viewAllRoles() {
         return this.connection.query(
             `SELECT role.id, role.title, role.salary, department.name 
