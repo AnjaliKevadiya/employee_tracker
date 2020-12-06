@@ -49,6 +49,14 @@ class DB {
         );
     }
 
+    // update selected employee's manager
+    updateEmployeeManager(employeeId, managerId) {
+        return this.connection.query(
+            `UPDATE employee SET manager_id = ${managerId} 
+            WHERE id = ${employeeId}`
+        );
+    }
+
     removeEmployee(employeeId) {
         return this.connection.query(
             `DELETE FROM employee
