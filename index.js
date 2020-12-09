@@ -140,7 +140,6 @@ async function employeePromts() {
 async function viewEmployees() {
 
     const employees = await db.viewAllEmployees();
-    console.log(employees);
 
     console.log("\n");
     console.table(employees);
